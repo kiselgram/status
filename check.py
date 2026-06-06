@@ -3,9 +3,9 @@ import json, subprocess, time, os, urllib.request
 SERVICES = [
     ("kiselgram.ru", "https://kiselgram.ru/"),
     ("Web App", "https://web.kiselgram.ru/"),
-    ("API", "https://api.kiselgram.ru/api.v2/api/"),
+    ("API", "https://api.kiselgram.ru/"),
     ("CDN", "https://cdn.kiselgram.ru/"),
-    ("Status", "https://status.kiselgram.ru/"),
+    ("Status", "https://kiselgram.github.io/status/"),
 ]
 
 os.makedirs("badges", exist_ok=True)
