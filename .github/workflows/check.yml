@@ -1,0 +1,26 @@
+name: Status Check
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install requests
+      - run: python check.py
+      - run: |
+          git config user.name "kiselgram-status-bot"
+          git config user.email "bot@kiselgram.ru"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/kiselgram/status.git
+          git add -A
+          if ! git diff --staged --quiet; then
+            git commit -m "Update status [skip ci]"
+            git push
+          fi
